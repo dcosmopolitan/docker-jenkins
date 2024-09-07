@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                scripts {
+                script {
                      customImage = docker.build("hmathur/speedtest-cli")
                 }
             }
@@ -11,7 +11,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                scripts {
+                script {
                     docker.withRegistry('', 'docker-creds') {
 
         customImage.push()
