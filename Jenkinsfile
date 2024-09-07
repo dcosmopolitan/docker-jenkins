@@ -1,7 +1,8 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Build Docker Image') {
+            agent any
             steps {
                 script {
                      customImage = docker.build("hmathur/speedtest-cli")
@@ -10,6 +11,7 @@ pipeline {
         }
 
         stage('Push Docker Image') {
+            agent any
             steps {
                 script {
                     docker.withRegistry('', 'docker-creds') {
