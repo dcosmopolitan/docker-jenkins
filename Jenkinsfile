@@ -1,10 +1,27 @@
-node {
+pipeline {
     agent any
-    docker.withRegistry('', 'docker-creds') {
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                scripts {
+                     customImage = docker.build("hmathur/speedtest-cli")
+                }
+            }
+        }
 
-        def customImage = docker.build("hmathur/speedtest-cli")
+        stage('Push Docker Image') {
+            steps {
+                scripts {
+                    docker.withRegistry('', 'docker-creds') {
 
-        /* Push the container to the custom Registry */
         customImage.push()
+                }
+            }
+        }
+
+        
     }
+
+    }
+    
 }
