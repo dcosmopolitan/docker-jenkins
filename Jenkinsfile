@@ -1,5 +1,5 @@
 node {
-
+    agent any
     docker.withRegistry('', 'docker-creds') {
 
         def customImage = docker.build("hmathur/speedtest-cli")
