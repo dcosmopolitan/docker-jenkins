@@ -1,21 +1,10 @@
-pipeline {
-    stages {
-        stage('Build Image'){
-            steps {
-                image = docker.build("hmathur/speedtest-cli")
-            }
-        }
-        stage('Push Image'){
-            steps {
-                 docker.withRegistry('', 'docker-creds') {
-                 image.push()
-    }
-            }
-        }
+node {
+
+    docker.withRegistry('', 'docker-creds') {
+
+        def customImage = docker.build("hmathur/speedtest-cli")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
     }
 }
-
-
-
-
-    
